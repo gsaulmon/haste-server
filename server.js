@@ -12,6 +12,11 @@ var config = JSON.parse(fs.readFileSync('config.js', 'utf8'));
 config.port = config.port || 7777;
 config.host = config.host || 'localhost';
 
+//the generic auth function
+function authorize(username, password) {
+    return config.user === username & config.pass === password;
+}
+
 // Set up the logger
 if (config.logging) {
   try {
@@ -93,6 +98,8 @@ var documentHandler = new DocumentHandler({
 
 // Set the server up with a static cache
 connect.createServer(
+   //check user & pass first before anything
+   connect.basicAuth(authorize),
   // First look for api calls
   connect.router(function(app) {
     // get raw documents - support getting with extension

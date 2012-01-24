@@ -2,6 +2,8 @@
 
   "host": "localhost",
   "port": 7777,
+  "host": "",
+  "port": "",
 
   "keyLength": 10,
 
